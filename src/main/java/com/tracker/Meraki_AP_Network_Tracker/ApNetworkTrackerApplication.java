@@ -9,5 +9,4 @@ public class ApNetworkTrackerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApNetworkTrackerApplication.class, args);
 	}
-
 }
