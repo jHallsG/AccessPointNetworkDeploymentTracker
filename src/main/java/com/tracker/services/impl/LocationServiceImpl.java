@@ -1,50 +1,75 @@
 package com.tracker.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.tracker.custom_exception_handler.CustomNoSuchElementException;
+import com.tracker.custom_exception_handler.CustomSQLIntegrityConstraintViolationException;
 import com.tracker.entities.LocationEntity;
 import com.tracker.repositories.LocationRepository;
 import com.tracker.services.LocationServices;
 
+import jakarta.transaction.Transactional;
+
 @Service
-public class LocationServiceImpl implements LocationServices{
-	
+public class LocationServiceImpl implements LocationServices {
+
 	private LocationRepository locationRepository;
-	
-	public LocationServiceImpl(LocationRepository locationRepository){
+
+	public LocationServiceImpl(LocationRepository locationRepository) {
 		this.locationRepository = locationRepository;
 	}
 
 	@Override
 	public List<LocationEntity> viewAllLocations() {
-		
+
 		return locationRepository.findAll();
 	}
 
 	@Override
-	public LocationEntity addNewLocation(LocationEntity location) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public LocationEntity addNewLocation(LocationEntity location)
+			throws CustomSQLIntegrityConstraintViolationException {
+
+		Optional<LocationEntity> optionalLocationRecord = locationRepository.findByLocName(location.getLocName());
+
+		if (optionalLocationRecord.isPresent())
+			throw new CustomSQLIntegrityConstraintViolationException("Location name already exists.");
+
+		return locationRepository.save(location);
 	}
 
 	@Override
-	public LocationEntity updateLocationDetails(String locId) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public LocationEntity updateLocationDetails(LocationEntity location) throws CustomSQLIntegrityConstraintViolationException {
+
+		Optional<LocationEntity> optionalLocationRecord = locationRepository.findByLocName(location.getLocName());
+
+		if (optionalLocationRecord.isPresent())
+			throw new CustomSQLIntegrityConstraintViolationException("Location name already exists.");
+
+		return locationRepository.save(location);
 	}
 
 	@Override
-	public LocationEntity deleteLocation(String locId) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public String deleteLocation(int locId) {
+		
+		Optional<LocationEntity> optionalLocationRecord = locationRepository.findById(locId);
+		
+		if (optionalLocationRecord.isPresent()) {
+			locationRepository.deleteById(locId);
+			return "Location ID : " + locId + " successfully deleted";
+		} else throw new CustomNoSuchElementException("Location does not exist.");
+		
 	}
 
 	@Override
-	public LocationEntity searchlocationByIdName(String locId, String locName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LocationEntity> searchLocationByName(String locName) {
+		
+		return locationRepository.findByLocNameContaining(locName);
 	}
 
 }
