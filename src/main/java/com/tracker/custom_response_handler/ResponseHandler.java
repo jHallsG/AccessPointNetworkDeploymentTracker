@@ -29,5 +29,17 @@ public class ResponseHandler {
 		
 		return new ResponseEntity<>(response, status);
 	}
+	
+	public static ResponseEntity<Object> exceptionResponseBuilder(HttpStatus status, String exception, String exceptionMessage, String path){
+		Map<String, Object> response = new HashMap<>();
+		
+		response.put("exception", exception);
+		response.put("status", status);
+		response.put("message", exceptionMessage);
+		response.put("path", path);
+		response.put("timestamp", LocalDateTime.now());
+		
+		return new ResponseEntity<>(response, status);
+	}
 
 }

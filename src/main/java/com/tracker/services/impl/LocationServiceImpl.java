@@ -44,6 +44,8 @@ public class LocationServiceImpl implements LocationServices {
 	@Override
 	@Transactional
 	public LocationEntity updateLocationDetails(LocationEntity location) throws CustomSQLIntegrityConstraintViolationException {
+		
+		if (location.getLocId() == 0) throw new IllegalArgumentException("Location ID must be specified"); 
 
 		Optional<LocationEntity> optionalLocationRecord = locationRepository.findByLocName(location.getLocName());
 

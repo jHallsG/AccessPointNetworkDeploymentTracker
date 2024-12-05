@@ -4,8 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.tracker.custom_response_handler.ResponseHandler;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
@@ -26,8 +30,8 @@ public class CustomExceptionHandler {
 		return ResponseHandler.responseBuilder(status, exceptionError.getMessage());
 	}
 	
-	@ExceptionHandler(value = {CustomNoSuchElementException.class})
-	public ResponseEntity<Object> handleSqlConstraintsException(CustomNoSuchElementException exceptionError){
+	@ExceptionHandler(value = {CustomNoSuchElementException.class, CustomEntityNotFoundException.class})
+	public ResponseEntity<Object> handleNotFoundException(RuntimeException exceptionError){
 		
 		return ResponseHandler.responseBuilder(HttpStatus.NOT_FOUND, exceptionError.getMessage());
 	}
@@ -35,9 +39,14 @@ public class CustomExceptionHandler {
 	@ExceptionHandler
 	public ResponseEntity<Object> generalExceptionHandler(Exception exception){
 		
-		return ResponseHandler.responseBuilder(
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+		
+		return ResponseHandler.exceptionResponseBuilder(
 				HttpStatus.INTERNAL_SERVER_ERROR, 
-				exception.getClass().getName() + ":" + exception.getMessage());
+				exception.getClass().getName(),
+				exception.getMessage(),
+				request.getRequestURI());
+				
 		
 	}
 }
