@@ -2,11 +2,22 @@ package com.tracker.entities;
 
 import com.tracker.enums.ProductCategoryEnum;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+
+@Entity(name = "product")
 public class ProductEntity {
 	
+	@Id
 	private int productId;
 	private String productName;
+	@Enumerated(EnumType.STRING)
 	private ProductCategoryEnum category;
+	@Column(name = "totalqty")		// column name is totalQty but MySQL is case insensitive.
+									// using @Column(name = "totalQty") would be converted as total_qty in the SQL query 
 	private int totalQty;
 	
 	public int getProductId() {
@@ -18,6 +29,7 @@ public class ProductEntity {
 	public ProductCategoryEnum getCategory() {
 		return category;
 	}
+	
 	public int getTotalQty() {
 		return totalQty;
 	}

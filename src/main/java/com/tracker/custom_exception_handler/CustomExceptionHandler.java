@@ -46,7 +46,5 @@ public class CustomExceptionHandler {
 				exception.getClass().getName(),
 				exception.getMessage(),
 				request.getRequestURI());
-				
-		
 	}
 }

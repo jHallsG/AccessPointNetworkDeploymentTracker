@@ -7,8 +7,8 @@ import com.tracker.entities.ProductEntity;
 public interface ProductServices {
 	
 	List<ProductEntity> viewAllproducts();
-	ProductEntity addNewProduct();
-	ProductEntity updateProductInfo();
-	ProductEntity deleteProduct();
+	ProductEntity addNewProduct(ProductEntity product);
+	ProductEntity updateProductInfo(ProductEntity product);
+	void deleteProduct(int productId);
 
 }
