@@ -1,9 +1,10 @@
 package com.tracker.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity
+@Entity(name = "user")
 public class UserEntity {
 
 	@Id
@@ -11,6 +12,7 @@ public class UserEntity {
 	private String username;
 	private String password;
 	private String role;
+	@Column(name = "engineer_id")
 	private String engrId;
 	
 	public int getUserId() {
