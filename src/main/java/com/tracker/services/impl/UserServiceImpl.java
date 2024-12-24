@@ -2,7 +2,9 @@ package com.tracker.services.impl;
 
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,14 @@ public class UserServiceImpl implements UserServices{
 	
 	private UserRepo userRepo;
 	private PasswordEncoder passwordEncoder;
+	private AuthenticationManager authManager;
+	private JWTService jwt;
 	
-	public UserServiceImpl(UserRepo userRepo, PasswordEncoder passwordEncoder) {
+	public UserServiceImpl(UserRepo userRepo, PasswordEncoder passwordEncoder, AuthenticationManager authManager, JWTService jwt) {
 		this.userRepo = userRepo;
 		this.passwordEncoder = passwordEncoder;
+		this.authManager = authManager;
+		this.jwt = jwt;
 	}
 
 	public UserEntity register(UserEntity user) throws CustomSQLIntegrityConstraintViolationException {
@@ -39,5 +45,12 @@ public class UserServiceImpl implements UserServices{
 		if (user.getRole() == null) user.setRole("ENGINEER");
 		
 		return userRepo.save(user);
+	}
+	
+	public String verify(UserEntity user) {
+		// verify/authenticate user
+		Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+		// generate token
+		return (auth.isAuthenticated()) ? jwt.generateToken(user.getUsername()) : "Username and password does not exist.";
 	}
 }

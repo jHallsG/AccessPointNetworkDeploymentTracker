@@ -24,4 +24,9 @@ public class UserController {
 	public ResponseEntity<Object> register(@RequestBody UserEntity user) throws CustomSQLIntegrityConstraintViolationException {
 		return ResponseHandler.responseBuilder(HttpStatus.OK, user.getUsername() + " successfully registered.", userService.register(user));
 	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<Object> login(@RequestBody UserEntity user){
+		return ResponseHandler.responseBuilder(HttpStatus.OK, "Credentials verified", userService.verify(user));
+	}
 }

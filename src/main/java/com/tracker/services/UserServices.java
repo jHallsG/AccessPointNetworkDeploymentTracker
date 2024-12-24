@@ -5,6 +5,7 @@ import com.tracker.entities.UserEntity;
 
 public interface UserServices {
 	
-	public UserEntity register(UserEntity user) throws CustomSQLIntegrityConstraintViolationException;
+	UserEntity register(UserEntity user) throws CustomSQLIntegrityConstraintViolationException;
+	String verify(UserEntity user);
 
 }
