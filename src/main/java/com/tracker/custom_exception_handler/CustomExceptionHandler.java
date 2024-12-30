@@ -9,6 +9,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.tracker.custom_response_handler.ResponseHandler;
 
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
@@ -35,6 +36,11 @@ public class CustomExceptionHandler {
 		
 		return ResponseHandler.responseBuilder(HttpStatus.NOT_FOUND, exceptionError.getMessage());
 	}
+	
+	@ExceptionHandler(SignatureException.class)
+    public ResponseEntity<Object> handleJWTSignatureException(SignatureException ex) {
+        return ResponseHandler.responseBuilder(HttpStatus.UNAUTHORIZED, "Your account is not authorized to access this page");
+    }
 	
 	@ExceptionHandler
 	public ResponseEntity<Object> generalExceptionHandler(Exception exception){

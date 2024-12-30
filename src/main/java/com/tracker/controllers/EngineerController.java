@@ -2,7 +2,9 @@ package com.tracker.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,7 @@ import com.tracker.entities.EngineerEntity;
 import com.tracker.services.EngineerServices;
 
 @RestController
-@RequestMapping("/engineers")
+@RequestMapping("/admin/engineers")
 public class EngineerController {
 	
 	private EngineerServices engrServices;
@@ -43,6 +45,16 @@ public class EngineerController {
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : " + engr.getEngrId());
 			
 		return ResponseHandler.responseBuilder(HttpStatus.OK, "Update successful", engrServices.updateEngineerDetails(engr));
+	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<Object> deleteEngrAcct(){
+		return ResponseHandler.responseBuilder(HttpStatus.OK, "Account successfully removed.");
+	}
+	
+	@PostMapping("/add")
+	public ResponseEntity<Object> addEngrAcct(EngineerEntity engr){
+		return ResponseHandler.responseBuilder(HttpStatus.OK, "Account successfully added.",engrServices.addNewEngineer(engr));
 	}
 
 }
