@@ -2,11 +2,19 @@ package com.tracker.entities;
 
 import com.tracker.enums.ProductDetailsEnum;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+
+@Entity(name = "product_details")
 public class ProductDetailsEntity {
 	
+	@Id
 	private String serialNumber;
 	private int productId;
 	private String brand;
+	@Enumerated(EnumType.STRING)
 	private ProductDetailsEnum currentStatus;
 	private String remarks;
 	

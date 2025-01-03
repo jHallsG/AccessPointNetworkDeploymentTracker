@@ -46,7 +46,7 @@ public class JWTService {
 				.claims(claims)
 				.subject(username)
 				.issuedAt(new Date(System.currentTimeMillis()))
-				.expiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000)) // active for one minute
+				.expiration(new Date(System.currentTimeMillis() + 30 * 60 * 1000)) // active for 30 minutes
 				.signWith(getKey())
 				.compact();
 	}

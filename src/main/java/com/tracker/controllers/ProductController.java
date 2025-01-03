@@ -25,6 +25,12 @@ public class ProductController {
 		this.productService = productService;
 	}
 	
+	@GetMapping("/overview")
+	public ResponseEntity<Object> getOverview(){
+		
+		return ResponseHandler.responseBuilder(HttpStatus.OK, "Product list successfully retrieved", productService.getOverview());
+	}
+	
 	@GetMapping("/view-all")
 	public ResponseEntity<Object> viewAll(){
 		
