@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductServices{
 	@Override
 	public List<ProductsOverviewDTO> getOverview() {
 		/*
-		 * getOverview() returns an array of Objects. They contain custom fields not available in the 
+		 * productRepository.getOverview() returns an array of Objects. They contain custom fields not available in the 
 		 * ProductEntity class (ie: qty_available, qty_returned, qty_deployed).
 		 * Need to manually map these fields to ProductsOverviewDTO.
 		 */
@@ -55,15 +55,14 @@ public class ProductServiceImpl implements ProductServices{
 		List<ProductsOverviewDTO> mapRawResultsToDTO = new ArrayList<ProductsOverviewDTO>();
 		for (Object[] item : rawSQLQueryResults) {
 			mapRawResultsToDTO.add(new ProductsOverviewDTO(
-					(int) item[0], 
+					((Number) item[0]).intValue(), 
 					(String) item[1], 
 					(String) item[2], 
-					(int) item[3], 
-					(int) item[4], 
-					(int) item[5], 
-					(int) item[6]));
+					((Number) item[3]).intValue(), 
+					((Number) item[4]).intValue(), 
+					((Number) item[5]).intValue(), 
+					((Number) item[6]).intValue()));
 		}
-		
 		
 		return mapRawResultsToDTO;
 	}

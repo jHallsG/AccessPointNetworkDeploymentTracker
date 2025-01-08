@@ -4,13 +4,24 @@ import java.time.LocalDateTime;
 
 import com.tracker.enums.ProductDeploymentHistoryEnum;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+
+@Entity(name = "product_deployment_history")
 public class ProductHistoryEntity {
 	
+	@Id
 	private int historyId;
 	private String serialNumber;
+	@Enumerated(EnumType.STRING)
 	private ProductDeploymentHistoryEnum activity;
 	private LocalDateTime activityDate;
+	@Column(name = "location_name")
 	private String location;
+	@Column(name = "engineer_id")
 	private int engrId;
 	private String remarks;
 	
