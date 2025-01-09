@@ -6,7 +6,11 @@ import com.tracker.entities.ProductHistoryEntity;
 
 public interface ProductHistoryServices {
 	
+	ProductHistoryEntity updateDeploymentHistory(ProductHistoryEntity activity);
+	
 	List<ProductHistoryEntity> viewAllHistory();
-	List<ProductHistoryEntity> searchHistory(String serial, String activity, String location, String engr);
-	ProductHistoryEntity addNewActivity();
+	
+	/* TODO:
+	 * List<ProductHistoryEntity> searchHistory(String serial, String activity, String location, String engr);
+	 */
 }

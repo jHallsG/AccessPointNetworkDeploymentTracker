@@ -37,15 +37,15 @@ public class ProductDetailsImpl implements ProductDetailsServices{
 
 	@Override
 	@Transactional
-	public ProductDetailsEntity addUpdateProductDetail(ProductDetailsEntity productDetails) {
+	public ProductDetailsEntity addProductDetail(ProductDetailsEntity productDetails) {
 		
 		ProductDetailsEntity saveProductDetails;
 		
-		if (productDetails.getCurrentStatus() == null) {
+		if (productDetails.getCurrentStatus() == null || productDetails.getCurrentStatus().name().isBlank()) {
 			productDetails.setCurrentStatus(ProductDetailsEnum.in_stock);
 		}
 		
-		if (productDetails.getRemarks() == null) {
+		if (productDetails.getRemarks() == null || productDetails.getRemarks().isBlank()) {
 			productDetails.setRemarks(ProductDetailsEnum.in_stock.getDescription());
 		}
 		
@@ -66,4 +66,6 @@ public class ProductDetailsImpl implements ProductDetailsServices{
 		
 		return saveProductDetails;
 	}
+	
+	
 }

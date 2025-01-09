@@ -31,7 +31,7 @@ public class ProductDetailsController {
 	@PostMapping("add")
 	public ResponseEntity<Object> addNewProductDetail(@RequestBody ProductDetailsEntity productDetail){
 		
-		return ResponseHandler.responseBuilder(HttpStatus.OK, "New product detail listed.", detailsService.addUpdateProductDetail(productDetail));
+		return ResponseHandler.responseBuilder(HttpStatus.OK, "New product detail listed.", detailsService.addProductDetail(productDetail));
 	}
 
 }

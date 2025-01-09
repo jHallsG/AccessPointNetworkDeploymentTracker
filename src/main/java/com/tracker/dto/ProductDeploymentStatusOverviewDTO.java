@@ -1,6 +1,6 @@
 package com.tracker.dto;
 
-public class ProductsOverviewDTO {
+public class ProductDeploymentStatusOverviewDTO {
 	
 	private int productId;
 	private String productName;
@@ -10,7 +10,7 @@ public class ProductsOverviewDTO {
 	private int qtyReturned;
 	private int qtyDeployed;
 	
-	public ProductsOverviewDTO(int productId, String productName, String category, int qtyTotal, int qtyAvailable,
+	public ProductDeploymentStatusOverviewDTO(int productId, String productName, String category, int qtyTotal, int qtyAvailable,
 			int qtyReturned, int qtyDeployed) {
 		this.productId = productId;
 		this.productName = productName;

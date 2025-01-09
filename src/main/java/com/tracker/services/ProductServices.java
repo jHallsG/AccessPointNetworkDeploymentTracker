@@ -2,7 +2,7 @@ package com.tracker.services;
 
 import java.util.List;
 
-import com.tracker.dto.ProductsOverviewDTO;
+import com.tracker.dto.ProductDeploymentStatusOverviewDTO;
 import com.tracker.entities.ProductEntity;
 
 public interface ProductServices {
@@ -11,6 +11,6 @@ public interface ProductServices {
 	ProductEntity addNewProduct(ProductEntity product);
 	ProductEntity updateProductInfo(ProductEntity product);
 	void deleteProduct(int productId);
-	List<ProductsOverviewDTO> getOverview();
+	List<ProductDeploymentStatusOverviewDTO> getOverview();
 
 }

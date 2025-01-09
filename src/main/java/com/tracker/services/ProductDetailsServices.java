@@ -7,7 +7,8 @@ import com.tracker.entities.ProductDetailsEntity;
 public interface ProductDetailsServices {
 	
 	List<ProductDetailsEntity> viewAllproductDetails();
-	ProductDetailsEntity addUpdateProductDetail(ProductDetailsEntity productDetails);
+	ProductDetailsEntity addProductDetail(ProductDetailsEntity productDetails);
+	
 	
 	/* TODO: 
 	ProductDetailsEntity deleteProductDetail();

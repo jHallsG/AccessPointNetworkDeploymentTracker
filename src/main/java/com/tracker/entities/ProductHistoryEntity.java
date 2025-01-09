@@ -22,7 +22,7 @@ public class ProductHistoryEntity {
 	@Column(name = "location_name")
 	private String location;
 	@Column(name = "engineer_id")
-	private int engrId;
+	private String engrId;
 	private String remarks;
 	
 	public int getHistoryId() {
@@ -40,7 +40,7 @@ public class ProductHistoryEntity {
 	public String getLocation() {
 		return location;
 	}
-	public int getEngrId() {
+	public String getEngrId() {
 		return engrId;
 	}
 	public String getRemarks() {
@@ -61,7 +61,7 @@ public class ProductHistoryEntity {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public void setEngrId(int engrId) {
+	public void setEngrId(String engrId) {
 		this.engrId = engrId;
 	}
 	public void setRemarks(String remarks) {

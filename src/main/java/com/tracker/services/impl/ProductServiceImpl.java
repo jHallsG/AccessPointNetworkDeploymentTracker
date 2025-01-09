@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.tracker.dto.ProductsOverviewDTO;
+import com.tracker.dto.ProductDeploymentStatusOverviewDTO;
 import com.tracker.entities.ProductEntity;
 import com.tracker.repositories.ProductRepository;
 import com.tracker.services.ProductServices;
@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductServices{
 	}
 
 	@Override
-	public List<ProductsOverviewDTO> getOverview() {
+	public List<ProductDeploymentStatusOverviewDTO> getOverview() {
 		/*
 		 * productRepository.getOverview() returns an array of Objects. They contain custom fields not available in the 
 		 * ProductEntity class (ie: qty_available, qty_returned, qty_deployed).
@@ -52,9 +52,9 @@ public class ProductServiceImpl implements ProductServices{
 		 */
 		// 
 		List<Object[]> rawSQLQueryResults = productRepository.getOverview();
-		List<ProductsOverviewDTO> mapRawResultsToDTO = new ArrayList<ProductsOverviewDTO>();
+		List<ProductDeploymentStatusOverviewDTO> mapRawResultsToDTO = new ArrayList<ProductDeploymentStatusOverviewDTO>();
 		for (Object[] item : rawSQLQueryResults) {
-			mapRawResultsToDTO.add(new ProductsOverviewDTO(
+			mapRawResultsToDTO.add(new ProductDeploymentStatusOverviewDTO(
 					((Number) item[0]).intValue(), 
 					(String) item[1], 
 					(String) item[2], 
